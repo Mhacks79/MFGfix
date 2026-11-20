@@ -1,0 +1,32 @@
+# Native build outputs
+**/build/
+**/Build/
+**/Debug/
+**/Release/
+**/x64/
+**/x86/
+*.obj
+*.pdb
+*.ilk
+*.ipch
+*.suo
+*.VC.db
+*.VC.opendb
+.vs/
+
+# IDE and temporary outputs
+.vscode/
+.idea/
+*.log
+*.tmp
+*.bak
+__pycache__/
+*.pyc
+
+# Keep distributable binary and compiled Papyrus files out of source control.
+# The release ZIP is the appropriate place for packaged runtime artifacts.
+*.dll
+*.pex
+*.zip
+*.7z
+*.rar
