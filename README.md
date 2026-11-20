@@ -89,7 +89,7 @@ The plugin creates **no custom cosave records**; existing saves can be used. Rea
 
 ## Build, sources and validation
 
-The supplied **test archive** contains `Source/Port` (LE C++ and project files), `Source/harness`, upstream source snapshots, Papyrus sources, `README.txt` and `VALIDATION.txt`. This repository's public source upload is being prepared; **the documentation here does not itself constitute the complete buildable source tree**.
+The full **LE-specific C++ source tree**, Papyrus interfaces, native build projects, fake-engine harness, and regression tests are published here under [`Source/Port`](Source/Port) and [`Source/harness`](Source/harness). The original distribution archive also contains upstream source snapshots and the **SKSE 1.7.3 SDK**, which are external dependencies and are **not vendored into this repository**. To build, obtain the exact SKSE SDK from the original distribution/archive or its official publisher and place it in `Source/original-skse-sdk`.
 
 The port builds with **Visual Studio 2022**, Win32 toolchain v143 and the **SKSE 1.7.3 SDK**. The distributed source tree documents `Source/Port/Build.ps1` and `Build.ps1 -Harness`. See [build notes](docs/BUILD.md) and [validation status](docs/VALIDATION.md).
 

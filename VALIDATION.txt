@@ -1,0 +1,90 @@
+Mfg Fix NG LE 1.0.13-test5 - 2026-11-20
+Change from test4: Mfg Console replacement. MfgConsole.dll (sha 25194ce2, the copy in
+SexLab 1.62) was read in Ghidra and with capstone, and everything console.swf asks of it
+is rebuilt in src/Legacy.cpp + src/LegacyCore.h: GetObjectData (info row + live
+phoneme/modifier/expression row), GetObjectExtraData (common, armour, book, container,
+weapon, ammo, potion, soul gem, magic effect, spell/scroll/ingredient/potion, shout,
+race, NPC, actor with level/spells/active effects/164 actor values/equipment, texture
+set, quest, message, form list), EnableExtraInfo + the overwrite table, PlayerBlinkSet,
+GetModItems, SaveBatFile, ConsolePrint, and its three ModifyFaceGen call-site fixes
+(0x005440BF, 0x005441A6, 0x005442BD; each patched only when it still calls vanilla).
+Active only when MfgConsole.dll is not loaded and [MfgConsole] bReplace=1.
+Checked offline: harness 2217 checks, 0 failures (104 new, against fake GFx, fake forms,
+a fake DataHandler and hand-built plugin files); 21/21 replacement mutants detected
+(tests/mutate_legacy.py), 7/7 engine mutants still detected (test_mutations.ps1). The
+harness caught one real bug before release: the form type was read at +0x14 (SE) instead
+of +0x12 (LE). Loader probe: no file with the INI absent or shipped, log with
+EnableLog=1. Preflight 0 fatal. Not run in game.
+
+Mfg Fix NG LE 1.0.12-test4 - 2026-11-19
+Change from test3: coexistence with the original Mfg Console. Its console.swf gets the
+phoneme/modifier table and the extra info window from MfgConsole.dll (Scaleform
+skse.plugins.MfgConsole), so test3's advice to disable it removed them. With
+MfgConsole.dll loaded, the plain mfg phoneme/modifier/expression/reset console commands
+are handed back to it ([Console] bPassToMfgConsole=1); ng verbs, status and all Papyrus
+natives stay here. Checked offline: harness 2113 checks, 0 failures (14 new); the new
+checks fail when the hand-over is removed (4 failures) and the 7 engine mutants are
+still detected. Loader probe: no file written with the INI absent or at 0, log opened
+with EnableLog=1. Preflight 0 findings, x86 static CRT, no build path. Not run in game.
+
+Mfg Fix NG LE 1.0.11-test3 - 2026-11-06
+Only change from test2: MfgFixNGLE.log is no longer written by default. Nothing is
+created unless [Debug] EnableLog=1 is set in MfgFixNGLE.ini (shipped at 0). Checked
+offline: harness 2099 checks, 0 failures; a loader probe calling SKSEPlugin_Query and
+SKSEPlugin_Load sees no file write with the INI absent or at 0, and the log file
+opened with EnableLog=1. Expressions, hooks and addresses are those of test2.
+
+Mfg Fix NG LE 1.0.10-test2 - validation, 2026-10-12
+
+TEST1 RUNTIME REPORT AND DIAGNOSIS
+The game log confirms 12 verified sites, zero differences, installed hooks,
+seven natives and a face callback on a different thread from loading.
+The user reported only ngmouth visibly working, failed expressions and reset.
+Test1's 2083 passing checks used a return-only native update stub; they missed
+native source-to-final merge behavior. The stronger regression fails seven
+checks with the old native port code.
+
+Ghidra MCP connected to the existing Skyrim project and opened TESV.exe.
+Relevant decompilation outputs are under Source/Port/evidence. Update 0x0059E5C0
+copies explicit expression frame1 into final5; primary0 requires a live transition
+to report changes. Final modifier7 and phoneme9 retain cached values when explicit
+sources reach zero without the force edge at +1A3/+1A4. A zero-delta update consumes
+that edge without rebuilding. Copy/nonzero/transition callees were also examined.
+
+CORRECTIONS AND CHECKS
+Expressions use explicit frame1. Immediate changes keep their slot until a positive
+unfrozen native tick, where the force edge rebuilds final arrays, including zeros.
+status/statut aliases and request/gate logging were added. No installed game files
+or mod-manager configuration were changed.
+
+Release Win32 MSVC v143/static CRT build: no warnings. Preflight: zero findings.
+Eight code signatures/four globals: zero failures. DLL reread: x86, only two SKSE
+exports, kernel32/shell32 imports, no redistributable CRT or build paths. Hook and
+release addresses and the test2 version string are confirmed. Both LE-compiled
+PEX interfaces are unchanged from test1.
+
+Enhanced fake-engine bench: 2099 checks, zero failures. Real plugin hooks, queued
+tasks and console code run against a model of the native no-dialogue/no-primary-
+transition merge branch, including final arrays and zero-delta reset.
+Seven deliberate mutations detected, then sources restored: instant transitions
+(10 failures), stuck override (4), stale load (5), stale destruction (3), unchecked
+count (3), wrong expression source (7), missing final rebuild (5). The final clean
+run again passes 2099 checks. Bench request+tick approximately 15 microseconds;
+deepest measured request stub stack 508 bytes. These are not in-game performance
+or whole-engine stack bounds. No per-tick heap allocation.
+
+CommonLibLE: 240 addresses verified, 639 field rows, 140 slot rows. Six new field
+meanings recorded with durable Ghidra evidence and matching knowledge notes.
+
+PENDING IN-GAME ACCEPTANCE
+Test2 has not run in the user's game. The model is not the full TESV update:
+rendering, actual dialogue/transition composition, native frozen reset, blinking,
+lip sync, live Papyrus VM execution and mod conflicts remain unverified.
+Installable correction test; not complete SE NG engine/settings parity.
+
+CREATOR ACCEPTANCE UPDATE - 2026-10-13
+The creator confirmed test2 works in game on12October and reaffirmed both MFG
+and converted CEE work on13October. This supersedes the pending-at-build status
+above for basic expression functionality. Exhaustive optional integrations and
+identical SE eye/dialogue behavior are still not claimed. Combined client dossier
+is output/pdf/MFGFix_CEE_LE_Validation_Report_AssAssAI.pdf in the workshop.

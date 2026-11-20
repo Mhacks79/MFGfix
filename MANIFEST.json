@@ -1,0 +1,22 @@
+{
+  "Scripts/MfgConsoleFunc.pex": {
+    "size": 1507,
+    "sha256": "c77d098e05f06ee8da798898e96f0301b99626119819e461023e43c0e412cc3d"
+  },
+  "Scripts/MfgConsoleFuncExt.pex": {
+    "size": 1816,
+    "sha256": "a829055e5e9eb6e6d8916d8e7803d3a5dfa3b3792c23efbb8f8148a1a3b81155"
+  },
+  "SKSE/Plugins/MfgFixNGLE.dll": {
+    "size": 261632,
+    "sha256": "477083e03fd99589a34cffe15c5326ec086f4e2b12c149b04fdb989019cd65ab"
+  },
+  "SKSE/Plugins/MfgFixNGLE.ini": {
+    "size": 1487,
+    "sha256": "7d017dc5bd2b8546b16927034ebbd96d69e2b0840c009016f5f623a299b923f0"
+  },
+  "Source/original-MfgFixNG/dist/SKSE/Plugins/mfgfix.ini": {
+    "size": 7993,
+    "sha256": "7e66096f9cc7746671d50c557625995ed534bcd1017888b2e70512135840a0af"
+  }
+}
