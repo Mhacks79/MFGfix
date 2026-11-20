@@ -10,32 +10,32 @@ int function GetPhonemeModifier(Actor act, int mode, int id) native global
 
 ; set phoneme/modifier, same as console.
 bool function SetPhoneme(Actor act, int id, int value) global
-    return SetPhonemeModifier(act, 0, id, value)
+	return SetPhonemeModifier(act, 0, id, value)
 endfunction
 bool function SetModifier(Actor act, int id, int value) global
-    return SetPhonemeModifier(act, 1, id, value)
+	return SetPhonemeModifier(act, 1, id, value)
 endfunction
 
 ; reset phoneme/modifier. this does not reset expression.
 bool function ResetPhonemeModifier(Actor act) global
-    return SetPhonemeModifier(act, -1, 0, 0)
+	return SetPhonemeModifier(act, -1, 0, 0)
 endfunction
 
 ; get phoneme/modifier/expression
 int function GetPhoneme(Actor act, int id) global
-    return GetPhonemeModifier(act, 0, id)
+	return GetPhonemeModifier(act, 0, id)
 endfunction
 int function GetModifier(Actor act, int id) global
-    return GetPhonemeModifier(act, 1, id)
+	return GetPhonemeModifier(act, 1, id)
 endfunction
 
 ; return expression value which is enabled. (enabled only one at a time.)
 int function GetExpressionValue(Actor act) global
-    return GetPhonemeModifier(act, 2, GetExpressionID(act))
+	return GetPhonemeModifier(act, 2, GetExpressionID(act))
 endfunction
 ; return expression ID which is enabled.
 int function GetExpressionID(Actor act) global
-    return GetPhonemeModifier(act, 3, 0)
+	return GetPhonemeModifier(act, 3, 0)
 endfunction
 
 bool function GetModifiedScript() global
