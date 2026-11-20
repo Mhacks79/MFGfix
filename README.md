@@ -1,5 +1,7 @@
 # MFG Fix NG LE
 
+![MFG Fix NG LE](assets/mfg-fix-ng-le-banner.jpg)
+
 **Facial expressions, smooth transitions, and integrated Mfg Console replacement for Skyrim Legendary Edition.**
 
 ![Skyrim LE](https://img.shields.io/badge/Skyrim-LE%201.9.32-blue) ![SKSE](https://img.shields.io/badge/SKSE-1.7.3-blue) ![Architecture](https://img.shields.io/badge/Windows-x86%20%2F%2032--bit-lightgrey) ![License](https://img.shields.io/badge/License-GPL--3.0%20%2B%20exceptions-green) ![Status](https://img.shields.io/badge/1.0.13-Test%20Build%205-orange)
